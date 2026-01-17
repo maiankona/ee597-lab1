@@ -50,5 +50,17 @@ int main(int argc, char *argv[])
     if (n < 0) 
          error("ERROR reading from socket");
     printf("%s\n",buffer);*/
+    fromlen = sizeof(struct sockaddr_in);
+    while (1)
+    {
+        bzero(buffer,256);
+        fgets(buffer,255,stdin);
+        n = sendto(sockfd,buffer,strlen(buffer),0,(struct sockaddr *) &from,fromlen);
+        if (n < 0) error("sendto");
+        bzero(buffer,256);
+        n = recvfrom(sockfd,buffer,255,0,(struct sockaddr *)&from,&fromlen);
+        if (n < 0) error("srecvfrom");
+        printf("%s\n",buffer);
+    }
     return 0;
 }
