@@ -51,11 +51,13 @@ int main(int argc, char *argv[])
          error("ERROR reading from socket");
     printf("%s\n",buffer);*/
     socklen_t fromlen = sizeof(struct sockaddr_in);
+    socklen_t servlen = sizeof(serv_addr);
     while (1)
     {
+        printf("Please enter the message: ");
         bzero(buffer,256);
         fgets(buffer,255,stdin);
-        n = sendto(sockfd,buffer,strlen(buffer),0,(struct sockaddr *) &from,fromlen);
+        n = sendto(sockfd,buffer,strlen(buffer),0,(struct sockaddr *) &serv_addr,servlen);
         if (n < 0) error("sendto");
         bzero(buffer,256);
         n = recvfrom(sockfd,buffer,255,0,(struct sockaddr *)&from,&fromlen);
