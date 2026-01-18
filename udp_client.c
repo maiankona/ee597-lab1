@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 {
     int sockfd, portno, n;
 
-    struct sockaddr_in serv_addr;
+    struct sockaddr_in serv_addr, from;
     struct hostent *server;
 
     char buffer[256];
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     if (n < 0) 
          error("ERROR reading from socket");
     printf("%s\n",buffer);*/
-    fromlen = sizeof(struct sockaddr_in);
+    socklen_t fromlen = sizeof(struct sockaddr_in);
     while (1)
     {
         bzero(buffer,256);
