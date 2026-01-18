@@ -43,13 +43,13 @@ int main(int argc, char *argv[])
      printf("Here is the message: %s\n",buffer);
      n = write(newsockfd,"I got your message",18);
      if (n < 0) error("ERROR writing to socket");*/
-      fromlen = sizeof(struct sockaddr_in);
+      int fromlen = sizeof(struct sockaddr_in);
       while (1)
       {
-         n = recvfrom(newsockfd,buffer,255,0,(struct sockaddr *)&from,&fromlen);
+         n = recvfrom(newsockfd,buffer,255,0,(struct sockaddr_in *)&from,&fromlen);
          if (n < 0) error("recvfrom");
          printf("Here is the message: %s\n",buffer); //from original
-         n = sendto(newsockfd,"I got your message",18,0,(struct sockaddr *) &from,fromlen);
+         n = sendto(newsockfd,"I got your message",18,0,(struct sockaddr_in *) &from,fromlen);
          if (n < 0)
          error("sendto");
       }
